@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
   },
   unitLevelNum: {
     fontSize: 18,
-    fontWeight: "900",
+    fontWeight: "400",
     color: "#cd8812",
   },
 
