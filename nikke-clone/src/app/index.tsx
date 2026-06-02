@@ -359,10 +359,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "center",
     gap: 8,
     marginBottom: 18,
     borderRadius: 10,
-    marginHorizontal: 230,
+    marginHorizontal: "45%",
     backgroundColor: "#a6a6a6a7",
   },
   powerIcon: {
@@ -427,10 +428,10 @@ const styles = StyleSheet.create({
   unitInfo: {
     backgroundColor: "rgba(0, 0, 0, 0.69)",
     paddingHorizontal: 6,
-    // height: 48,
-    // justifyContent: "center",
+    height: 48, //
+    justifyContent: "center", //
     paddingTop: 4,
-    paddingBottom: 2,
+    paddingBottom: 4,
     borderBottomWidth: 5,
     borderBottomColor: "#ffeb3c",
   },
@@ -446,7 +447,9 @@ const styles = StyleSheet.create({
   },
   unitLevelNum: {
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: "600",
+    textShadowColor: "#000000",
+    textShadowRadius: 2,
     color: "#cd8812",
   },
 
