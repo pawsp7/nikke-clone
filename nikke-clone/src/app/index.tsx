@@ -207,7 +207,8 @@ const NikkeSquad = () => {
         {/* Alert Button */}
         <TouchableOpacity
           style={styles.alertBtn}
-          onPress={() => Alert.alert("Alert Button pressed")}
+          onPress={() => 
+            Alert.alert("Alert Button pressed")}
         >
           <Text style={styles.alertBtnText}>Alert</Text>
         </TouchableOpacity>
