@@ -10,7 +10,7 @@ const characters = [
     element: "#2033e0",
     burst: "I",
     stars: 3,
-    bgImage: require("../../assets/images/nikke/dorothy.jpg"),
+    bgImage: require("../../assets/images/nikke/Dorothy.jpg"),
   },
   {
     id: "2",
@@ -18,7 +18,7 @@ const characters = [
     element: "#30a860",
     burst: "III",
     stars: 3,
-    bgImage: require("../../assets/images/nikke/liberalio.jpg"),
+    bgImage: require("../../assets/images/nikke/Libby.jpg"),
   },
   {
     id: "3",
@@ -26,7 +26,7 @@ const characters = [
     element: "#30a860",
     burst: "II",
     stars: 3,
-    bgImage: require("../../assets/images/nikke/anne.jpg"),
+    bgImage: require("../../assets/images/nikke/Anne.jpg"),
   },
   {
     id: "4",
@@ -34,7 +34,7 @@ const characters = [
     element: "#30a860",
     burst: "I",
     stars: 3,
-    bgImage: require("../../assets/images/nikke/siren.jpg"),
+    bgImage: require("../../assets/images/nikke/Siren.jpg"),
   },
   {
     id: "5",
@@ -42,7 +42,7 @@ const characters = [
     element: "#c030b2",
     burst: "III",
     stars: 2,
-    bgImage: require("../../assets/images/nikke/diesel.jpg"),
+    bgImage: require("../../assets/images/nikke/Diesel.jpg"),
   },
 ];
 
