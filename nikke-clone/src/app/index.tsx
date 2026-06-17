@@ -1,4 +1,6 @@
 import {StyleSheet, Text, View, StatusBar, ScrollView, Alert,TouchableOpacity, Image, ImageBackground} from "react-native";
+import Header from "../../components/header";
+// import Footer from "../../components/footer";
 import React from "react";
 
 const characters = [
@@ -142,7 +144,9 @@ const NikkeSquad = () => {
   return (
     <View style={styles.container}>
 
-      {/* Top Bar */}
+      <Header title="Squad" />
+
+      {/* Top Bar
       <View style={styles.topBar}>
         <View style={styles.squadLabel}>
           <Text style={styles.squadLabelText}>Squad</Text>
@@ -164,7 +168,7 @@ const NikkeSquad = () => {
           <View style={styles.topIcon} />
           <View style={styles.topIcon} />
         </View>
-      </View>
+      </View> */}
 
       {/* Scrollable Content */}
       <ScrollView style={styles.content}>
