@@ -1,25 +1,28 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { NavigationProp } from "@react-navigation/native";
+import { router, usePathname } from "expo-router";
 
-interface FooterProps {
-  navigation: NavigationProp<any>;
-  active?: string;
-}
+export default function Footer() {
+  const pathname = usePathname(); // gives you "/nikkes", "/squad", etc.
 
-export default function Footer({ navigation, active = "Squad" }: FooterProps) {
-  const navItems = ["Nikke", "Squad", "Lobby", "Inventory", "Recruit"];
+  const navItems = [
+    { label: "Nikke", route: "/nikkes" },
+    { label: "Squad", route: "/squad" },
+    // { label: "Lobby", route: "/lobby" },
+    // { label: "Inventory", route: "/inventory" },
+    // { label: "Recruit", route: "/recruit" },
+  ];
 
   return (
     <View style={styles.bottomNav}>
-      {navItems.map((label) => {
-        const isActive = label === active;
+      {navItems.map((item) => {
+        const isActive = pathname === item.route;
 
         return (
           <TouchableOpacity
-            key={label}
+            key={item.route}
             style={styles.navItem}
-            onPress={() => navigation.navigate(label as never)}
+            onPress={() => router.push(item.route)}
           >
             <View
               style={[
@@ -33,7 +36,7 @@ export default function Footer({ navigation, active = "Squad" }: FooterProps) {
                 isActive && styles.navLabelActive,
               ]}
             >
-              {label}
+              {item.label}
             </Text>
           </TouchableOpacity>
         );
