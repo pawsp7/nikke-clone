@@ -1,9 +1,20 @@
 import React from "react";
-import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 
 import StarRow from "./starRow";
+import BadgeColumn from "./badgeColumn";
 import { Character } from "../types/characters";
-import BadgeColumn from "./badgeColumn"; // <-- added
+
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const CARD_WIDTH = SCREEN_WIDTH / 3.3;
+const IMAGE_HEIGHT = CARD_WIDTH * 1.45;
 
 interface UnitDisplayProps {
   char: Character;
@@ -12,34 +23,37 @@ interface UnitDisplayProps {
 
 export default function UnitDisplay({ char, onPress }: UnitDisplayProps) {
   return (
-    <TouchableOpacity style={styles.unit} activeOpacity={0.8} onPress={onPress}>
-      
-      {/* Character Image */}
-      <ImageBackground source={char.bgImage} style={styles.unitImage}>
+    <TouchableOpacity
+      style={[styles.unit, { width: CARD_WIDTH }]}
+      activeOpacity={0.85}
+      onPress={onPress}
+    >
+      {/* Portrait Area */}
+      <View style={[styles.unitImage, { height: IMAGE_HEIGHT }]}>
         <Image
           source={char.bgImage}
-          style={styles.characterArt}
-          resizeMode="stretch"
+          style={[styles.characterArt, { width: CARD_WIDTH, height: IMAGE_HEIGHT }]}
+          resizeMode="cover"
         />
 
-        {/* Badge Column (replaced old block) */}
-        <BadgeColumn char={char} />
-      </ImageBackground>
+        {/* Transparent Info Overlay (Lv + Stars) */}
+        <View style={styles.infoOverlay}>
 
-      {/* Info Section */}
-      <View style={styles.unitInfo}>
-        <View style={styles.unitInfoRow}>
-          <View>
+          <View style={styles.infoLeft}>
             <Text style={styles.unitLevelLabel}>Lv.</Text>
             <Text style={styles.unitLevelNum}>467</Text>
           </View>
+
+          <View style={{ marginBottom: 6 }}>
           <StarRow stars={char.stars} />
+          </View>
         </View>
 
-        <Text style={styles.unitName}>{char.name}</Text>
+        {/* Badge Column */}
+        <BadgeColumn char={char} />
       </View>
 
-      {/* Footer */}
+      {/* Footer Bar */}
       <View style={styles.unitFooter}>
         <View style={styles.footerIcon} />
         <View style={styles.footerDivider} />
@@ -48,83 +62,55 @@ export default function UnitDisplay({ char, onPress }: UnitDisplayProps) {
         </View>
       </View>
 
+      {/* Name (separate from overlay so overlay stays bottom-aligned) */}
+      <Text
+        style={styles.unitName}
+          numberOfLines={1}
+          ellipsizeMode="tail">
+          {char.name}
+        </Text>
+
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   unit: {
-    width: 110,
     borderRadius: 10,
     overflow: "hidden",
     borderWidth: 2,
     borderColor: "#e8c060",
     elevation: 6,
+    backgroundColor: "#000",
   },
 
   unitImage: {
-    height: 140,
+    width: "100%",
+    justifyContent: "flex-start",
   },
 
   characterArt: {
-    width: 110,
-    height: 170,
-    alignSelf: "center",
-  },
-
-  badgeColumn: {
     position: "absolute",
-    top: 6,
-    left: 6,
-    flexDirection: "column",
-    gap: 6,
+    top: 0,
+    left: 0,
   },
 
-  badge: {
-    width: 16,
-    height: 16,
-    borderRadius: 14,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  whiteBadge: {
-    backgroundColor: "#ffffff",
-    borderWidth: 1,
-    borderColor: "#000",
-  },
-
-  burstBadge: {
-    borderWidth: 2,
-    borderColor: "#fff",
-  },
-
-  burstText: {
-    color: "#fff",
-    fontSize: 9,
-    fontWeight: "bold",
-  },
-
-  gunText: {
-    color: "#000",
-    fontSize: 7,
-    fontWeight: "bold",
-    paddingBottom: 2,
-  },
-
-  unitInfo: {
-    backgroundColor: "rgba(0, 0, 0, 0.69)",
-    paddingHorizontal: 6,
-    height: 48,
-    justifyContent: "center",
-    borderBottomWidth: 5,
-    borderBottomColor: "#ffeb3c",
-  },
-
-  unitInfoRow: {
+  /* Transparent Overlay (Lv + Stars) */
+  infoOverlay: {
+    position: "absolute",
+    bottom: 0, // now aligns correctly to bottom of portrait
+    left: 0,
+    right: 0,
     flexDirection: "row",
-    alignItems: "flex-end",
     justifyContent: "space-between",
+    alignItems: "flex-end",
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    backgroundColor: "rgba(0,0,0,0.55)",
+  },
+
+  infoLeft: {
+    flexDirection: "column",
   },
 
   unitLevelLabel: {
@@ -134,23 +120,27 @@ const styles = StyleSheet.create({
   },
 
   unitLevelNum: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 16,
+    fontWeight: "700",
     color: "#cd8812",
     textShadowColor: "#000",
     textShadowRadius: 2,
   },
 
+  /* Name (separate from overlay) */
   unitName: {
-    fontSize: 12,
-    fontWeight: "700",
+    position: "absolute",
+    bottom: 27, // sits above footer
+    right: 6,
+    fontSize: 11,
+    fontWeight: "600",
     color: "#cd8812",
-    marginTop: 2,
-    textAlign: "right",
     textShadowColor: "#000",
-    textShadowRadius: 1,
+    textShadowRadius: 2,
+    maxWidth: "85%",
   },
 
+  /* Footer */
   unitFooter: {
     flexDirection: "row",
     alignItems: "center",
@@ -165,7 +155,6 @@ const styles = StyleSheet.create({
   footerIcon: {
     width: 14,
     height: 14,
-    marginLeft: 12,
     borderRadius: 7,
     backgroundColor: "#b2b2b2",
   },
@@ -179,7 +168,6 @@ const styles = StyleSheet.create({
   infoCircle: {
     width: 16,
     height: 16,
-    marginRight: 12,
     borderRadius: 8,
     borderWidth: 1.5,
     borderColor: "#b2b2b2",
