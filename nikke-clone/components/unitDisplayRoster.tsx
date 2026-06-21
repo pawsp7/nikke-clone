@@ -14,23 +14,25 @@ import { Character } from "../types/characters";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const CARD_WIDTH = SCREEN_WIDTH * 0.26;
+// ⭐ Smaller width for 4-column roster grid
+const CARD_WIDTH = SCREEN_WIDTH * 0.22;
 
-const IMAGE_HEIGHT = CARD_WIDTH * 1.45;
+// ⭐ Shorter height than squad cards
+const IMAGE_HEIGHT = CARD_WIDTH * 1.5;
 
-interface UnitDisplayProps {
+interface UnitDisplayRosterProps {
   char: Character;
   onPress?: () => void;
 }
 
-export default function UnitDisplay({ char, onPress }: UnitDisplayProps) {
+export default function UnitDisplayRoster({ char, onPress }: UnitDisplayRosterProps) {
   return (
     <TouchableOpacity
       style={[styles.unit, { width: CARD_WIDTH }]}
       activeOpacity={0.85}
       onPress={onPress}
     >
-      {/* Portrait Area */}
+      {/* Portrait */}
       <View style={[styles.unitImage, { height: IMAGE_HEIGHT }]}>
         <Image
           source={char.bgImage}
@@ -51,19 +53,13 @@ export default function UnitDisplay({ char, onPress }: UnitDisplayProps) {
         </View>
 
         {/* Badge Column */}
-        <BadgeColumn char={char} />
-      </View>
-
-      {/* Footer Bar */}
-      <View style={styles.unitFooter}>
-        <View style={styles.footerIcon} />
-        <View style={styles.footerDivider} />
-        <View style={styles.infoCircle}>
-          <Text style={styles.infoText}>i</Text>
+        <View style={{ transform: [{ scale: 0.8 }], transformOrigin: "top left" }}>
+            <BadgeColumn char={char} />
         </View>
+
       </View>
 
-      {/* Name */}
+      {/* Name (floating above bottom) */}
       <Text
         style={styles.unitName}
         numberOfLines={1}
@@ -81,10 +77,10 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: 2,
     borderColor: "#e8c060",
-    elevation: 6,
     backgroundColor: "#000",
-    padding: 0,     
-    margin: 0,     
+    elevation: 5,
+    borderBottomWidth: 4,
+    borderBottomColor: "#d7bc51",
   },
 
   unitImage: {
@@ -130,7 +126,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
 
-  /* Name */
+  /* Name (floating above bottom) */
   unitName: {
     position: "absolute",
     bottom: 27,
@@ -141,46 +137,5 @@ const styles = StyleSheet.create({
     textShadowColor: "#000",
     textShadowRadius: 2,
     maxWidth: "85%",
-  },
-
-  /* Footer */
-  unitFooter: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#4b4941",
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderTopWidth: 5,
-    borderTopColor: "#d7bc51",
-  },
-
-  footerIcon: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: "#b2b2b2",
-  },
-
-  footerDivider: {
-    width: 1,
-    height: 12,
-    backgroundColor: "#b2b2b2",
-  },
-
-  infoCircle: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: "#b2b2b2",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  infoText: {
-    color: "#b2b2b2",
-    fontSize: 10,
-    fontWeight: "bold",
   },
 });

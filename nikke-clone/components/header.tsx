@@ -8,30 +8,30 @@ interface HeaderProps {
 
 export default function Header({ title = "Squad", onMailPress }: HeaderProps) {
   return (
-    <View style={styles.topBar}>
-      
-      {/* Left Label */}
-      <View style={styles.squadLabel}>
-        <Text style={styles.squadLabelText}>{title}</Text>
+    <View style={styles.container}>
+
+      {/* Left: Title */}
+      <View style={styles.titleBox}>
+        <Text style={styles.titleText}>{title}</Text>
       </View>
 
-      {/* Currency Row */}
+      {/* Middle: Currency */}
       <View style={styles.currencyRow}>
         <View style={styles.currencyItem}>
-          <View style={[styles.currencyBox, { backgroundColor: "#4488ff" }]} />
+          <View style={[styles.currencyIcon, { backgroundColor: "#4488ff" }]} />
           <Text style={styles.currencyText}>110K +</Text>
         </View>
 
         <View style={styles.currencyItem}>
-          <View style={[styles.currencyBox, { backgroundColor: "#555" }]} />
+          <View style={[styles.currencyIcon, { backgroundColor: "#555" }]} />
           <Text style={styles.currencyText}>78991K</Text>
         </View>
       </View>
 
-      {/* Icons */}
-      <View style={styles.topIconsRow}>
-        <TouchableOpacity style={styles.topIcon} onPress={onMailPress} />
-        <View style={styles.topIcon} />
+      {/* Right: Icons */}
+      <View style={styles.iconRow}>
+        <TouchableOpacity style={styles.icon} onPress={onMailPress} />
+        <View style={styles.icon} />
       </View>
 
     </View>
@@ -39,21 +39,23 @@ export default function Header({ title = "Squad", onMailPress }: HeaderProps) {
 }
 
 const styles = StyleSheet.create({
-  topBar: {
+  container: {
     backgroundColor: "#e8e8e8",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
   },
 
-  squadLabel: {
+  titleBox: {
     backgroundColor: "#2a2a2a",
-    paddingHorizontal: 20,
-    paddingVertical: 3,
+    paddingHorizontal: 14,
+    paddingVertical: 4,
     borderRadius: 6,
+    flexShrink: 1,
   },
-  squadLabelText: {
+  titleText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 15,
@@ -62,40 +64,40 @@ const styles = StyleSheet.create({
   currencyRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 16,
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    marginLeft: 50,
-    paddingVertical: 4,
     backgroundColor: "#9c9c9c",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    gap: 12,
+    flexShrink: 1,
   },
   currencyItem: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
   },
-  currencyBox: {
-    width: 22,
-    height: 22,
+  currencyIcon: {
+    width: 18,
+    height: 18,
     borderRadius: 4,
   },
   currencyText: {
     color: "#fff",
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "600",
   },
 
-  topIconsRow: {
+  iconRow: {
     flexDirection: "row",
-    gap: 10,
+    gap: 8,
     backgroundColor: "#c0c0c0",
-    paddingHorizontal: 20,
-    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
-  topIcon: {
-    width: 28,
-    height: 28,
-    margin: 6,
+  icon: {
+    width: 26,
+    height: 26,
     backgroundColor: "#dedede",
     borderRadius: 6,
   },

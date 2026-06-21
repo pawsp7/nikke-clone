@@ -6,13 +6,16 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  Dimensions,
 } from "react-native";
 
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import UnitDisplay from "../../components/unitDisplay";
+import UnitDisplayRoster from "../../components/unitDisplayRoster";
 
 import { characters } from "../../data/characters";
+
+const { width } = Dimensions.get("window");
 
 export default function NikkeScreen({ navigation }: any) {
   return (
@@ -32,26 +35,50 @@ export default function NikkeScreen({ navigation }: any) {
 
         {/* Sorting Row */}
         <View style={styles.sortRow}>
-          {["I", "II", "III", "PWR", "ALL"].map((label, i) => (
-            <TouchableOpacity key={i} style={styles.sortBtn}>
-              <Text style={styles.sortBtnText}>{label}</Text>
+
+          {/* Class Filters */}
+          <View style={styles.sortLeft}>
+            {["I", "II", "III"].map((label, i) => (
+              <TouchableOpacity key={i} style={styles.sortBtn}>
+                <Text style={styles.sortBtnText}>{label}</Text>
+              </TouchableOpacity>
+            ))}
+
+            {/* Star Button */}
+            <TouchableOpacity style={styles.sortBtn}>
+              <Text style={styles.sortBtnText}>★</Text>
             </TouchableOpacity>
-          ))}
+
+            {/* Power Dropdown */}
+            <TouchableOpacity style={styles.powerBtn}>
+              <Text style={styles.powerBtnText}>Power</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Filter Icon */}
+          <TouchableOpacity style={styles.filterBtn}>
+            <Text style={styles.filterText}>≡</Text>
+          </TouchableOpacity>
+
         </View>
 
-        {/* Character Grid (4 columns) */}
+        {/* Character Grid */}
         <View style={styles.grid}>
           {characters.map((char) => (
-            <UnitDisplay key={char.id} char={char} />
+            <View key={char.id} style={styles.gridItem}>
+<UnitDisplayRoster char={char} />
+            </View>
           ))}
         </View>
 
       </ScrollView>
 
-      <Footer/>
+      <Footer />
     </View>
   );
 }
+
+const CARD_WIDTH = width * 0.22; // smaller than squad screen
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +93,7 @@ const styles = StyleSheet.create({
   },
 
   // -----------------------------
-  // Liberation / Advise / Nikkepedia
+  // Top Buttons
   // -----------------------------
   topRow: {
     flexDirection: "row",
@@ -78,7 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 22,
     paddingVertical: 10,
-    borderRadius: 8,
+    borderRadius: 10,
     elevation: 3,
   },
   topBtnText: {
@@ -92,11 +119,19 @@ const styles = StyleSheet.create({
   // -----------------------------
   sortRow: {
     flexDirection: "row",
-    justifyContent: "center",
-    gap: 10,
+    justifyContent: "space-between",
+    paddingHorizontal: 14,
     paddingVertical: 12,
     backgroundColor: "#cfcfcf",
+    alignItems: "center",
   },
+
+  sortLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+
   sortBtn: {
     width: 42,
     height: 42,
@@ -111,6 +146,32 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
+  powerBtn: {
+    backgroundColor: "#444",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 6,
+  },
+  powerBtnText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 14,
+  },
+
+  filterBtn: {
+    width: 42,
+    height: 42,
+    borderRadius: 6,
+    backgroundColor: "#444",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  filterText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "900",
+  },
+
   // -----------------------------
   // Character Grid (4 columns)
   // -----------------------------
@@ -120,5 +181,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 14,
     paddingVertical: 16,
+  },
+
+  gridItem: {
+    width: CARD_WIDTH,
+    alignItems: "center",
   },
 });
