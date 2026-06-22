@@ -24,4 +24,4 @@ export type StarCount = 0 | 1 | 2 | 3;
 // -----------------------------
 // Weapon Types
 // -----------------------------
-export type WeaponType = "AR" | "RL" | "MG" | "SMG" | "SG";
+export type WeaponType = "AR" | "RL" | "MG" | "SMG" | "SG" | "SR";
