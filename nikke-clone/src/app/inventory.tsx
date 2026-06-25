@@ -41,7 +41,7 @@ export default function InventoryScreen() {
     <View style={styles.container}>
 
       {/* TOP CURRENCY HEADER */}
-      <Header />
+      <Header title="Inventory"/>
 
       {/* INVENTORY HEADER (tabs) */}
       <View style={styles.invHeaderContainer}>
