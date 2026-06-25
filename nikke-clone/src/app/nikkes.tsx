@@ -66,7 +66,7 @@ export default function NikkeScreen({ navigation }: any) {
         <View style={styles.grid}>
           {characters.map((char) => (
             <View key={char.id} style={styles.gridItem}>
-<UnitDisplayRoster char={char} />
+            <UnitDisplayRoster char={char} />
             </View>
           ))}
         </View>
