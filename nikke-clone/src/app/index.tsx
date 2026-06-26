@@ -1,5 +1,5 @@
-import NikkeScreen from "./nikkes";
+import RootNavigator from "../navigation/rootNavigator";
 
 export default function Index() {
-  return <NikkeScreen />;
+  return <RootNavigator />;
 }
