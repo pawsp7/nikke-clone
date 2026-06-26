@@ -9,7 +9,7 @@ export default function Footer() {
     { label: "Nikke", route: "/nikkes" },
     { label: "Squad", route: "/squad" },
     // { label: "Lobby", route: "/lobby" },
-    // { label: "Inventory", route: "/inventory" },
+    { label: "Inventory", route: "/inventory" },
     // { label: "Recruit", route: "/recruit" },
   ];
 
