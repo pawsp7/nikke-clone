@@ -179,17 +179,6 @@ export const characters: Character[] = [
   bgImage: require("../assets/images/nikke/Anis.jpg"),
   },
 
-  {
-  id: "18",
-  name: "Siren",
-  element: "Water",
-  burst: "III",
-  stars: 3,
-  weapon: "MG",
-  bgImage: require("../assets/images/nikke/Siren.jpg"),
-  },
-
-
 
 
 ];
