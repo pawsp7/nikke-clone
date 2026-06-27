@@ -10,15 +10,31 @@ import {
   Dimensions,
 } from "react-native";
 
+import { useLocalSearchParams, router } from "expo-router";
+
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import UnitDisplay from "../../components/unitDisplay";
 
 import { characters } from "../../data/characters";
+import { squads } from "../../data/squads";
+
+import type { Character } from "../../types/characters";
 
 const { width } = Dimensions.get("window");
 
-export default function NikkeSquad({ navigation }: any) {
+export default function NikkeSquad() {
+  // Get active squad from dynamic route
+  const { squadId = "01" } = useLocalSearchParams<{ squadId: string }>();
+
+  // Get list of character names for this squad
+  const squadList = squads[squadId] || [];
+
+  // Convert names → character objects
+  const squadChars = squadList
+  .map((name) => characters.find((c) => c.name === name))
+  .filter((c): c is Character => Boolean(c));
+
   return (
     <View style={styles.container}>
       <Header title="Squad" />
@@ -35,11 +51,23 @@ export default function NikkeSquad({ navigation }: any) {
 
         {/* Squad Tabs */}
         <View style={styles.squadTabs}>
-          {["01", "02", "03", "04", "05"].map((t, i) => (
-            <View key={i} style={[styles.squadTab, i === 0 && styles.squadTabActive]}>
-              <Text style={styles.squadTabText}>{t}</Text>
-            </View>
-          ))}
+          {["01", "02", "03", "04", "05"].map((t) => {
+            const active = t === squadId;
+            return (
+              <TouchableOpacity
+                key={t}
+                style={[styles.squadTab, active && styles.squadTabActive]}
+                onPress={() =>
+                router.push({
+                pathname: "/squad/[squadId]",
+                params: { squadId: t },
+               })
+              }
+              >
+                <Text style={styles.squadTabText}>{t}</Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
 
         {/* Total Power */}
@@ -53,7 +81,7 @@ export default function NikkeSquad({ navigation }: any) {
 
           {/* Top Row (3 units) */}
           <View style={styles.topRow}>
-            {characters.slice(0, 3).map((char) => (
+            {squadChars.slice(0, 3).map((char) => (
               <View key={char.id} style={styles.unitWrapper}>
                 <UnitDisplay char={char} />
               </View>
@@ -62,7 +90,7 @@ export default function NikkeSquad({ navigation }: any) {
 
           {/* Bottom Row (2 units) */}
           <View style={styles.bottomRow}>
-            {characters.slice(3, 5).map((char) => (
+            {squadChars.slice(3, 5).map((char) => (
               <View key={char.id} style={styles.unitWrapper}>
                 <UnitDisplay char={char} />
               </View>
@@ -92,9 +120,6 @@ export default function NikkeSquad({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  /* -----------------------------
-     CONTAINER
-  ------------------------------*/
   container: {
     flex: 1,
     backgroundColor: "#1a1a1a",
@@ -106,9 +131,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#e8e8e8",
   },
 
-  /* -----------------------------
-     CAMPAIGN HEADER (CENTERED)
-  ------------------------------*/
   campaignHeader: {
     alignItems: "center",
     paddingTop: 24,
@@ -126,9 +148,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 
-  /* -----------------------------
-     SQUAD TABS (CENTERED)
-  ------------------------------*/
   squadTabs: {
     flexDirection: "row",
     justifyContent: "center",
@@ -153,9 +172,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 
-  /* -----------------------------
-     TOTAL POWER (CENTERED)
-  ------------------------------*/
   powerContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -180,10 +196,6 @@ const styles = StyleSheet.create({
     color: "#333",
   },
 
-  /* -----------------------------
-     FORMATION (CENTERED)
-     3 TOP — 2 BOTTOM
-  ------------------------------*/
   formation: {
     marginTop: 10,
     alignItems: "center",
@@ -208,9 +220,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  /* -----------------------------
-     ALERT BUTTON
-  ------------------------------*/
   alertButton: {
     alignSelf: "center",
     marginTop: 16,
@@ -228,9 +237,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
 
-  /* -----------------------------
-     AUTO BUTTON (FLOATING)
-  ------------------------------*/
   autoButton: {
     position: "absolute",
     bottom: 72,
