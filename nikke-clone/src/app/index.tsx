@@ -1,5 +1,5 @@
-import RootNavigator from "../navigation/rootNavigator";
+import { Redirect } from "expo-router";
 
 export default function Index() {
-  return <RootNavigator />;
+  return <Redirect href="/squad/01" />;
 }
