@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from "react-native";
 
-import Header from "../../components/header"; 
 import Footer from "../../components/footer";   
 
 export default function InventoryScreen() {
@@ -39,9 +38,6 @@ export default function InventoryScreen() {
 
   return (
     <View style={styles.container}>
-
-      {/* TOP CURRENCY HEADER */}
-      <Header title="Inventory"/>
 
       {/* INVENTORY HEADER (tabs) */}
       <View style={styles.invHeaderContainer}>
@@ -133,7 +129,7 @@ const styles = StyleSheet.create({
 
   invHeaderText: {
     color: "#888",
-    fontSize: 15,
+    fontSize: 11,
     fontWeight: "600",
   },
 

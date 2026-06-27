@@ -9,7 +9,6 @@ import {
   Dimensions,
 } from "react-native";
 
-import Header from "../../components/header";
 import Footer from "../../components/footer";
 import UnitDisplayRoster from "../../components/unitDisplayRoster";
 
@@ -20,7 +19,6 @@ const { width } = Dimensions.get("window");
 export default function NikkeScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
-      <Header title="Nikke" />
 
       <ScrollView style={styles.content}>
 

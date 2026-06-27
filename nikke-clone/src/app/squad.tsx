@@ -12,7 +12,6 @@ import {
 
 import { useLocalSearchParams, router } from "expo-router";
 
-import Header from "../../components/header";
 import Footer from "../../components/footer";
 import UnitDisplay from "../../components/unitDisplay";
 
@@ -37,7 +36,6 @@ export default function NikkeSquad() {
 
   return (
     <View style={styles.container}>
-      <Header title="Squad" />
 
       <ScrollView style={styles.content}>
 

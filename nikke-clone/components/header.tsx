@@ -1,12 +1,14 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useUI } from "../src/context/UIContext";
 
 interface HeaderProps {
   title?: string;
-  onMailPress?: () => void;
 }
 
-export default function Header({ title = "Squad", onMailPress }: HeaderProps) {
+export default function Header({ title = "H.S." }: HeaderProps) {
+  const { setShowMail } = useUI();
+
   return (
     <View style={styles.container}>
 
@@ -30,7 +32,10 @@ export default function Header({ title = "Squad", onMailPress }: HeaderProps) {
 
       {/* Right: Icons */}
       <View style={styles.iconRow}>
-        <TouchableOpacity style={styles.icon} onPress={onMailPress} />
+        <TouchableOpacity style={styles.mailIcon}
+          onPress={() => setShowMail(true)} >
+           <View style={styles.mailDot} />
+        </TouchableOpacity>
         <View style={styles.icon} />
       </View>
 
@@ -44,6 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingTop: 32,
     paddingHorizontal: 10,
     paddingVertical: 8,
   },
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 11,
   },
 
   currencyRow: {
@@ -101,4 +107,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#dedede",
     borderRadius: 6,
   },
+  mailIcon: {
+    width: 26,
+    height: 26,
+    backgroundColor: "#dedede",
+    borderRadius: 6,
+  },
+  mailDot: {
+    backgroundColor: "#e70000c1",
+    width: 12,
+    height: 12,
+    borderRadius: 20,
+  }
 });
